@@ -23,13 +23,13 @@ int main(int argc, char* argv[]) // main 함수
 {
     rclcpp::init(argc, argv); // ROS2 초기화
     auto node = std::make_shared<rclcpp::Node>("camsub_wsl"); // 노드 생성
-    auto qos_profile = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort(); // 
-    std::function<void(const sensor_msgs::msg::CompressedImage::SharedPtr msg)> fn;
-    int frame_width = 640;
-    int frame_height = 360;
-    video_writer.open("output.mp4", cv::VideoWriter::fourcc('a', 'v', 'c', '1'), 30, cv::Size(frame_width, frame_height));
-    fn = std::bind(mysub_callback, node, _1);
-    auto mysub = node->create_subscription<sensor_msgs::msg::CompressedImage>("image/compressed",qos_profile,fn);
+    auto qos_profile = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort(); // 통신의 품질을 설정 ( best_effort()가 가장 좋은 품질로 됨 )
+    std::function<void(const sensor_msgs::msg::CompressedImage::SharedPtr msg)> fn; // 
+    int frame_width = 640; // 영상의 가로길이
+    int frame_height = 360; // 영상의 세로길이
+    video_writer.open("output.mp4", cv::VideoWriter::fourcc('a', 'v', 'c', '1'), 30, cv::Size(frame_width, frame_height)); // " " 안의 이름으로 파일 저장
+    fn = std::bind(mysub_callback, node, _1); // bind로 콜백 함수에 전달할 인자를 설정
+    auto mysub = node->create_subscription<sensor_msgs::msg::CompressedImage>("image/compressed",qos_profile,fn); // 구독자를 생성하는 역할
     rclcpp::spin(node);
     rclcpp::shutdown();
 
