@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) // main 함수
     rclcpp::init(argc, argv); // ROS2 초기화
     auto node = std::make_shared<rclcpp::Node>("camsub_wsl"); // 노드 생성
     auto qos_profile = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort(); // 통신의 품질을 설정 ( best_effort()가 가장 좋은 품질로 됨 )
-    std::function<void(const sensor_msgs::msg::CompressedImage::SharedPtr msg)> fn; // 
+    std::function<void(const sensor_msgs::msg::CompressedImage::SharedPtr msg)> fn; // 이미지 메시지를 처리하기 위한 콜백 함수를 지정
     int frame_width = 640; // 영상의 가로길이
     int frame_height = 360; // 영상의 세로길이
     video_writer.open("output.mp4", cv::VideoWriter::fourcc('a', 'v', 'c', '1'), 30, cv::Size(frame_width, frame_height)); // " " 안의 이름으로 파일 저장
