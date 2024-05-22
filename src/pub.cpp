@@ -15,7 +15,7 @@ std::string src = "nvarguscamerasrc sensor-id=0 ! \
 int main(int argc, char * argv[]) //main 함수
 {
     rclcpp::init(argc, argv); //ROS2 초기화
-    auto node = std::make_shared<rclcpp::Node>("campub"); ROS2 노드 선언 
+    auto node = std::make_shared<rclcpp::Node>("campub"); // ROS2 노드 선언 
     auto qos_profile = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort(); //통신의 품질을 설정 ( best_effort()가 가장 좋은 품질로 됨 )
     auto mypub = node->create_publisher<sensor_msgs::msg::CompressedImage>("image/compressed", qos_profile ); // 퍼블리셔 생성
     
