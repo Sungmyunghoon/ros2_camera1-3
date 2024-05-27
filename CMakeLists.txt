@@ -1,17 +1,22 @@
+#최소 Cmake버전은 3.16으로 설정
 cmake_minimum_required(VERSION 3.16)
+#프로젝트 이름
 project(camera1_3)
 
 # Default to C++14
+# C++ 표준의 기본값을 C++14로 설정
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
 endif()
 
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+# 컴파일러가 GNU C++ 또는 Clang인 경우, 추가 컴파일 옵션을 설정
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang") 
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 # find dependencies
-find_package(ament_cmake REQUIRED)
+# 필요한 패키지를 찾는다
+find_package(ament_cmake REQUIRED) 
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
